@@ -4,5 +4,5 @@
 
 ### Tutorials
 
-- [Make a language in one hour: `stacker`](./01 make a language in one hour stacker.md)
+- [Make a language in one hour: `stacker`](./tut01 make a language in one hour stacker.md)
 - 
