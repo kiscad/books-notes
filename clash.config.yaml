@@ -1,0 +1,50 @@
+#---------------------------------------------------#
+## 配置文件需要放置在 $HOME/.config/clash/*.yaml
+
+## 这份文件是clashX的基础配置文件，请尽量新建配置文件进行修改。
+## 端口设置请在 菜单条图标->配置->更多配置 中进行修改
+
+## 如果您不知道如何操作，请参阅 官方Github文档 https://dreamacro.github.io/clash/
+#---------------------------------------------------#
+
+# HTTP(S) and SOCKS4(A)/SOCKS5 server on the same port
+mixed-port: 7890
+
+# Transparent proxy server port for Linux and macOS (Redirect TCP and TProxy UDP)
+redir-port: 7891
+
+# Set to true to allow connections to the local-end server from other LAN IP addresses
+allow-lan: false
+
+# Clash router working mode
+# rule: rule-based packet routing
+# global: all packets will be forwarded to a single endpoint
+# direct: directly forward the packets to the Internet
+mode: rule
+
+log-level: info
+
+proxies:
+  - name: "http"
+    type: http
+
+    # server: 185.238.250.18
+    # username: cchen4216
+    server: 193.22.152.247
+    username: cchen
+    
+    port: 443
+    tls: true # https
+    password: ZAQ12wsx
+    skip-cert-verify: true
+    # sni:custom.com
+
+proxy-groups:
+
+rules:
+  # - DOMAIN-SUFFIX,google.com,http
+  # - DOMAIN-KEYWORD,google,http
+  # - DOMAIN-KEYWORD,youtube,http
+  - DOMAIN-SUFFIX,ad.com,REJECT
+  - GEOIP,CN,DIRECT
+  - MATCH,http
