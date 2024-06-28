@@ -1,0 +1,31 @@
+mixed-port: 7890
+redir-port: 7892
+
+allow-lan: false
+
+mode: rule
+log-level: info
+
+external-controller: 127.0.0.1:51441
+secret: 778643d5-5256-4d38-98e5-b39cb40bbf76
+
+proxies:
+  - name: "server1"
+    type: http
+    server: 193.22.152.247
+    port: 443
+    username: cchen
+    password: ZAQ12wsx
+    tls: true
+    skip-cert-verify: true
+
+proxy-groups:
+  - name: "vpn"
+    type: select
+    proxies:
+      - server1
+
+rules:
+  - DOMAIN-SUFFIX,ad.com,REJECT
+  - GEOIP,CN,DIRECT
+  - MATCH,vpn
