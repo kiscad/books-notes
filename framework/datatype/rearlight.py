@@ -1,12 +1,13 @@
 from dataclasses import dataclass, field
-from trimesh import Geometry
-from trimesh.primitives import Sphere
+
+from .imesh import IMesh
 from .ipart import IPart
+from .mesh_stub import MeshStub
 
 
 @dataclass
 class RearLight(IPart):
-  mesh: Geometry = field(default_factory=Sphere)
+    mesh: IMesh = field(default_factory=MeshStub.make_sphere)
 
-  def display(self):
-    print("display: rear light")
+    def get_name(self):
+        return "Part: Rearlight"

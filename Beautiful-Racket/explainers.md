@@ -13,4 +13,5 @@
 11. [Macro](./exp-macro.md)
 12. [Hygiene](./exp-hygiene.md)
 13. [Syntax object](./exp-syntax-object.md)
-14. [Syntax pattern]
+14. [Syntax pattern](./exp-syntax-pattern.md)
+15. [Module](./exp-module.md)

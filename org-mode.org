@@ -1,0 +1,414 @@
+* TODO 如何编写单元测试用例
+* 是否可以搭建一个本地的基于 Python 测试系统
+
+* Document Structure
+
+Org is an outliner. Outlines allow a document to be organized in a hierarchical structure, which is the best representation of notes and thoughts.
+
+An overview of this structure is achieved by folding, i.e. hiding large parts of the document to show only the general document structure and the parts currently being worked on.
+
+** Headlines
+
+Headlines define the structure of an outline tree. The headlines in Org start on the left margin with one or more stars followed by a space.
+
+** Visibility Cycling
+
+Outlines make it possible to hide parts of the text in the buffer. Org uses just two commands, bound to ~TAB~ and ~S-TAB~ to change the visibility in the buffer.
+
+** Structure Editing
+
+- ~M_RET~ Insert new heading with same level as current.
+- ~M-S-RET~ Insert new TODO entry with same level as currrent heading.
+- [ ] todo example
+  - TAB in new empty entry
+
+*** Promote or denote current heading by one level
+
+- ~C-C C-w~ Refile entry or region to a different location.
+
+When there is an active region, promotion and demotion work on all headlines in the region.
+
+** Sparse Trees
+
+An important feature of Org mode is the ability to construct /sparse trees/ for selected information in an outline tree, so that the entire document is folded as much as possible.
+
+Org mode contains several commands creating such trees, all these commands can be accessed through a dispatcher.
+
+- ~C-c /~ This prompts for an extra key to select a sparse-tree creating commands.
+- ~C-c / r~ Occur.
+
+** Plain Lists
+
+With an entry of the outline tree, hand-formatted lists can provide additional structure. They also provide a way to create lists of checkboxes.
+
+Org supports editing such lists, and every exporter can parse and format them.
+
+Org knows ordered list, unordered lists, and description lists.
+
+- /Ordered/ list items start with -, +, or * as bullets
+- /Ordered/ list items start with 1. or 1
+- /Description/ list use :: to separate the /term/ from the description.
+
+Items belonging to the same list must have the same indentation on the first line.
+An item ends before the next line that is indented like its bullet/number, or less. A list ends when all items are closed, or before two blank lines.
+
+My favorite scenes are
+1. The attack of the Rohirrim
+2. Eowyn's fight with the witch king
+   + this was already my favorite scene in the book
+   + [ ] I really like Miranda Otto.
+Important actors in this file are:
+- Elijah Wood :: He plays Frodo
+- Sean Astin :: He plays Sam, Frodo's friend.
+
+* Tables
+
+Org comes with a fast and intuitive table editor. Spreadsheet-like calculations are supported in connection with the Emacs Calc package.
+
+Org makes it easy to format tables in plain ASCII. Any line with | as the first non-whitespace character is considered part of a table. | is also the column separator. A table might look like this:
+
+| Name  | Phone | Age |
+|-------+-------+-----|
+| Anna  |  4321 |  25 |
+| Peter  |  1234 |  17 |
+
+A table is re-aligned automatically each time you press TAB or RET or C-c C-c inside the table.
+TAB also moves to the next field and creates new table rows at the end of the table or before horizontal lines.
+
+The indentation of the table is set by the first line. Any line starting with |- is considered as a horizontal separator line and will be expanded on the next re-align to span the whole table width. So, to create the above table, you would only type.
+
+| Name | Phone | Age |
+|------+-------+-----|
+| A    | B     | C   |
+
+Even faster would be to type
+
+| Name | Phone | Age |
+|------+-------+-----|
+|    1 |     2 | s   |
+
+When typing text into a field, Org treats DEL, Backsapce, and all character keys in a special way, so that inserting and deleting avoids
+
+** Creation and conversion
+
+| a | b |    c |      d |    e |
+|---+---+------+--------+------|
+| 1 | 2 | 1234 | 423135 | 5345 |
+
+
+* Hyperlinks
+
+Like HTML, Org provides links inside a file, external links to other files, Usenet articles, emails, and much more.
+
+Org recognizes plain URIs, possibly wrapped within angle brackets, and activate them as clickable links. [[Link][DESCRIPTION]]
+
+Once a link in the buffer is complete, with all brackets present, Org changes the display.
+
+** Internal links
+
+If the link does not look like a URL, it is considered to be internal in the current file. The most important case is a link like #my-custom-id which links to the entry with the CUSTOM_ID property "my-custom-id".
+
+Links such as ~[[My target]]~ lead to a text search in the current file for the corresponding target, which looks like ~<<My Target>>~
+
+** External links
+
+Org supports links to files, websites, Usenet and email messages, BBDB database entries and links to both IRC conversations and their logs.
+
+External links are URL-like locators. They start with a short identifying string followed by a colon. There can be no space after the colon.
+
+File links can contain additional information to make Emacs jump to a particular location in the file when following a link.
+This can be a line number or a search option after a double colon.
+
+** Handling Links
+
+Org provides methods to create a link in the correct syntax, to insert it into an Org file, and to follow the link.
+
+The main function is ~org-store-link~, called with ~M-x org-store-link~. Because of its importance, we suggest to bind it to a widely available key. It stores a link to the current location. The link is stored for later insertion into an Org buffer -- see blelow.
+
+From an Org buffer, the following commands create, navigate or, more generally, act on links.
+
+Insert a link. This [[*External links][External links]] prompts for a link to be inserted into the buffer. You can just a link. You will be prompted for the description part of the link.
+
+When called with a C-u prefix argument, file name completion is used to link [[file:mojo-docs.md][mojo]] to a file.
+
+~C-c &~ Jump back to a recorded position. A position is recorded by the commands following internal links, and by ~C-c %~. Using this command several times in direct succession moves through a ring of previously recorded positions.
+
+* Todo Items
+
+Org mode does not require TODO lists to live in separate documents. Instead, TODO items are part of a notes file, because TODO items usually come up while taking notes!
+
+With Org mode, simply mark any entry in a tree as being a TODO item. In this way, information is not duplicated, and TODO items remain in the context from which they emerged.
+
+Org mode provides methods to give you an overview of all the things that you have to do, collected from many files.
+
+** Basic TODO Functionality
+
+Any headline becomes a TODO item when it starts with the word TODO, for xample.
+
+*** WAITING Write letter to Sam Fortune
+:LOGBOOK:
+- State "WAITING"    from "DONE"       [2024-01-02 Tue 19:08]
+- State "DONE"       from "TODO"       [2024-01-02 Tue 19:08]
+:END:
+
+The most important commands to work with TODO entries are:
+
+*** STARTED insert a new TODO entry below the current one.
+:LOGBOOK:
+- State "STARTED"    from "WAITING"    [2024-01-02 Tue 19:15]
+:END:
+
+** Multi-state Workflow
+
+You can use TODO keywords to indicate /sequential/ working progress states.
+
+Sometimes you may want to use different sets of TODO keywords in parallel. For example, you may want to have the basic ~TODO=/=DONE~, but also a workflow for bug fixing. You setup would then look like this.
+
+The keywords should all be different, this helps Org mode to keep track of which subsequence should be used for a given entry.
+
+The example also shows how to define keys for fast access of a particular state.
+
+To define TODO keywords that are valid only in a single file, use the following text anywhere in the file.
+
+** STARTED Progress Logging
+:LOGBOOK:
+- State "STARTED"    from "TODO"       [2024-01-02 Tue 19:23] \\
+  start the projects
+:END:
+
+To record a timestamp and a note when changing a TODO state, call the command org-todo with a prefix argument.
+
+Org mode can also auto record a timestamp and optionally a note when you mark a TODO item as DONE, or even each time you change the state of a TODO item. This system is highly configurable, settings can be on a per-keyword basis and can be localized to a file or even a subtree.
+
+*** Closing items
+
+The most basic logging is to keep track of when a certain TODO item was marked as done. This can be achieved with ~(setq org-log-done 'time)~
+
+Then each time you turn an entry from a TODO state into any of the DONE states, a line CLOSED: timestamp is inserted just after the headline.
+
+If you want to record a note along with the timestamp, use ~(setq org-log-done 'note)~.
+
+You are then be prompted for a note, and that note is stored below the entry with a ClosingNote heading.
+
+*** DONE Tracking TODO state changes
+CLOSED: [2024-01-02 Tue 19:47]
+:LOGBOOK:
+- State "DONE"       from "WAITING"    [2024-01-02 Tue 19:47] \\
+  done
+- State "WAITING"    from "STARTED"    [2024-01-02 Tue 19:47] \\
+  wait for something happens
+- State "STARTED"    from "DONE"       [2024-01-02 Tue 19:46]
+- State "DONE"       from "STARTED"    [2024-01-02 Tue 19:45]
+:END:
+
+You might want to keep track of TODO state changes. You can either record just a timestamp, or a time-stamped note for a change. These records are inserted after the headline as an itemized list.
+
+When taking a lot of notes, you might want to get the notes out of the way into a drawer. Customize the variable ~org-log-into-drawer~ to get this behavior.
+
+** Priorities
+
+If you use Org mode extensively, you may end up with enough TODO items that it starts to make sense to prioritize them. Prioritizing can be done by placing a /priority cookie/ into the headline of a TODO item, like this
+
+*** TODO [#B] Write letter to Sam
+
+Org mode supports three priorities: A, B, and C. A is the highest, B the default if none is given. Priorities make a difference only in the agenda.
+
+** Breaking Tasks Down into Subtasks
+
+It is often advisable to break down large tasks into smaller, manageable subtasks.
+You can do this by creating an outline tree below a TODO item, with detailed subtasks on the tree.
+
+To keep an overview of the fraction of subtasks that have already been marked as done, insert either [/] or [%] anywhere in the headline.
+
+These cookies are updated each time the TODO status of a child changes, or when pressing C-c C-c on cookie.
+
+*** Organize Party [33%]
+**** TODO Call people [1/2]
+***** TODO Peter
+***** DONE Sarah
+CLOSED: [2024-01-02 Tue 20:06]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2024-01-02 Tue 20:06] \\
+  called
+:END:
+
+**** TODO Buy food
+**** DONE Talk to neighbor
+CLOSED: [2024-01-02 Tue 20:06]
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2024-01-02 Tue 20:06]
+:END:
+
+** Checkboxes
+
+Every item in a plain list can be made into a checkbox by starting it with the string [ ].
+Checkboxes are not included into the global TODO list, so they are often great to split a task into a number of simple steps.
+
+*** TODO Organize party [1/3]
+- [-] call people [1/2]
+  - [ ] Peter
+  - [X] Sarah
+- [X] order food
+- [ ] organize place
+
+Checkboxes work hierarchically, so if a checkbox item has children that are checkboxes, toggling one of the children checkboxes makes the parent checkbox reflect if none, some, or all of the children are checked.
+
+* Tags :work:urgent:
+
+An excellent way to implement labels and contexts for cross-correlating information is to assign /tags/ to headlines. Org mode has extensive support for tags.
+
+Every headline can contain a list of tags; they occur at the end of the headline. Tags are normal words containing letters, numbers, _ and @.
+
+Tags must be preceded and followed by a single colon, e.g. :work:. Several tags can be specified, as in :work:urgent:.
+
+** Tag inheritance
+
+Tags make use of the hierarchical structure of outline trees. If a heading has a certain tag, all subheadings inherit the tag as well.
+
+The final heading has the tags work, boss, notes, action even though the final heading is not explicitly marked with those tags.
+
+You can also set tags that all entries in a file should inherit jsut as if these tags were define in a hypothetical level zero that surrounds the entire file.
+
+** Setting tags                                                        :work:
+
+Tags can simply be typed into the buffer at the end of a headline. After a colon, M-TAB offers completion on tags. There is also a special command for inserting tags.
+
+** TODO [#C] Tag groups
+
+A tag can be defined as a /group tag/ for a set of other tags.
+
+* Properties
+
+Properties are key-value pairs associated with an entry. They live in a special drawer with the name PROPERTIES.
+Each property is specified on a single line, with the key first and the value after it.
+
+** CD Collection
+*** Classic
+**** Goldberg Variations
+:PROPERTIES:
+:Title: Goldberg Variations
+:Composer: J.S. Bach
+:Publisher: Deutsche Grammophon
+:NDisks: 1
+:END:
+
+You may define the allowed values for a particular property Xyz by setting a property Xyz_ALL.
+
+This special property is inherited, so if you set it in a level 1 entry, it applies to the entire tree. When allowed values are defined, setting the corresponding property becomes easier and is less prone to typing errors.
+
+For the example with the CD collection, we can pre-define publishers and the number of disks in a box like this:
+
+To create sparse trees and special lists with selection based on properties, the same commands are used as for tag searches.
+
+* Dates and Times
+
+To assist project planning, TODO items can be labeled with a date and a time. The specially formatted string carrying the date and time information is called a timestamp in Org mode.
+
+** Timestamps
+
+A timestamp is a specification of a date in special format. A timestamp can appear anywhere in the headline or body of an Org tree entry.
+
+Its presence causes entries to be shown on specific dates in the agenda.
+
+Meet peter at the movies <2024-01-10 Wed 19:15>
+
+Discussion on climate change <2024-01-05 Fri 20:00-22:00>
+
+Timestamp with repeater interval
+
+A timestamp may contain a repeater interval, indicating that it applies not only on the given date, but again and again after a certain interval of N hours, days, weeks, months, or years. The following shows up in the agenda every webnesday.
+
+Pick up Sam at school <2024-01-03 Wed 12:30 +1w>
+
+*Diary-style expression entries* For more complex date specification, Org mode supports using the special expression diary entries implemented in the Emacs Calendar package.
+
+22:00-23:00 The nerd meeting on every 2nd Thursday of the month <%%(diary-float t 4 2)>
+
+Meeting in Amsterdam <2004-08-23 Mon>--<2004-08-26 Thu>
+
+Gillian comes late for the fifth time [2024-02-02 Fri]
+
+** Creating Timestamps
+
+For Org mode to recognize timestamps, they need to be in the specific format. All commands listed below produce timestamps in the correct format.
+
+~C-c .~ Prompt for a date and insert a corresponding timestamp. When point is at an existing timestamp in the buffer, the command is used to modify this timestamp instead of inserting a new one.<2024-01-04 Thu>--<2024-01-05 Fri>
+
+When this command is used twice in succession, a time range is inserted. With a prefix argument, it also adds the current time.
+
+~C-c !~ insert an inactive timestamp <2024-01-04 Thu>
+
+** Deadlines and Scheduling
+
+A timestamp may be preceded by special keywords to facilitate planning.
+
+On the deadline date, the task is listed in the agenda. In addition, the agenda for today carries a warning about the approaching or missed deadline, starting org-deadline-warning-days before the due date, and continuing until the entry is marked as done.
+
+The headline is listed under the given date. In addition, a reminder that the scheduled date has passed is present in the compilation for today, until the entry is marked as done.
+
+* Capture, Refile, Archive
+
+An important part of any organization system is the ability to quickly capture new ideas and tasks, and to associate reference material with them.
+
+Org does this using a process called capture. It also can store files related to a task in a special directory.
+
+Once in the system, tasks and projects need to be moved around. Moving completed project trees to an archive file keeps the system compact and fast.
+
+** Capture
+
+Capture lets you quickly store notes with little interruption of your work flow. You can define templates for new entries and associate them with different targets for storing notes.
+
+*** Setting up capture
+
+The following customization sets a default target file for notes.
+
+*** Using capture
+
+~M-x org-capture~ start a capture process, placing you into a narrowed indirect buffer to edit.
+
+~C-c C-c~ Once you have finished entering information into the capture buffer, C-c C-c returns you to the window configuration before the capture process, so that you can resume your work without further distraction.
+
+~C-c C-w~ finalize the capture process by refiling the note to a different place.
+
+~C-c C-k~ abort the capture process and return to the previous state.
+
+*** Capture templates
+
+You can use templates for different types of capture items, and for different target locations.
+
+Say you would like to use one template to create general TODO entries, and you want to put these entries under the heading Tasks in your file org/gtd.org.
+
+Also, a date tree in the file journal.org should capture journal entries. A possible configuration would look like:
+
+#+BEGIN_SRC emacs-lisp
+(setq org-capture-templates
+  '(("t" "Todo" entry (file+headline "~/org/gtd.org" "Tasks")
+     "* TODO %?\n %i\n %a")
+    ("j" "Journal" entry (file+datetree "~/org/journal.org")
+     "* %?\nEntered on %U\n %i\n %a")))
+#+END_SRC
+
+If you then press t from the capture menu, Org will prepare the template for you like this:
+
+During expansion of the template, special %-escapes allow dynamic insertion of content. Here is a small selection of the possibilities, consult the manual for more.
+
+** Refile and copy
+
+When reviewing the captured data, you may want to refile or to copy some of the entries into a different list, for example into a project.
+
+Cutting, finding the right location, and then pasting the note is cumbersome.
+
+To simplify this process, you can use the following special command:
+
+- C-c C-w Refile the entry or region at point. This command offers possible locations for refiling the entry and lets you select one with completion.
+- C-u C-c C-w Use the refile interface to jump to a heading.
+
+** Archiving
+
+When a project represented by a tree is finished, you may want to move the tree out of the way and to stop it from contributing to the agenda.
+
+Archiving is important to keep your working files compact and global searches like the construction of agenda views fast.
+
+The most common archiving action is to move a project tree to another file, the archive file.
+
+

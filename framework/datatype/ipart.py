@@ -1,4 +1,4 @@
 ## Interface for car parts
 class IPart:
-  def display(self):
-    raise NotImplementedError
+    def get_name(self):
+        raise NotImplementedError()

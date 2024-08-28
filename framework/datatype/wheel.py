@@ -1,13 +1,13 @@
 from dataclasses import dataclass, field
 
-from trimesh import Geometry
-from trimesh.primitives import Sphere
+from .imesh import IMesh
 from .ipart import IPart
+from .mesh_stub import MeshStub
 
 
 @dataclass
 class Wheel(IPart):
-  mesh: Geometry = field(default_factory=Sphere)
+    mesh: IMesh = field(default_factory=MeshStub.make_sphere)
 
-  def display(self):
-    print("display: wheel")
+    def get_name(self):
+        return "Part: Wheel"

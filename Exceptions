@@ -1,0 +1,34 @@
+**Unit testing** is a software testing method by which Individual units of source code are tested to determine whether they are fit for use. A **unit** is the smallest possible testable software component, probably an individual function or a class.
+
+It also makes refactoring the code later much easier as one can just run the specific tests and check if the changes made are ready for production or not. Almost all programming languages have some library for unit testing.
+
+---
+
+Because we use CMake to build Catch2, we also provide a couple of integration points for our users.
+
+1. Catch2 exports a namespaced CMake target.
+2. Catch2's repo contains CMake scripts for automatic registration of `TEST_CASE`s in CTest.
+
+#### CMake targets
+
+Catch2 CMake build exports two targets, `Catch2::Catch2` and `Catch2::Catch2WIthMain`. If you do not need custom `main` function, you should be using the latter.
+
+Linking against it will add the proper include paths and link your target together with 2 static libraries that implement Catch2 and its main respectively.
+
+If you need custom `main`, you should link only against `Catch2::Catch2`.
+
+---
+
+- Linear algebra is fundamental in modern presentation of geometry, including for defining basic objecs, such as lines, planes, and rotation.
+  - 线性代数，为各种几何数据和操作，提供了统一的数学表示。
+
+
+
+
+
+
+
+
+
+
+
