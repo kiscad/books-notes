@@ -1,3 +1,10 @@
+
+            assert [context] == ["катаCounts КоCEupy flocksproduction Golf nominal Leeds agrees constituents verseChristianCalled "
+                                 "Rosen withstandStrangeHOOznamCE范围内 bouquetpregn following Разположено Chen Visa转账 experts"
+                                 ], "forward pass has been changed, check it!"
+
+
+
 # Copyright (c) 2024, HUAWEI CORPORATION.  All rights reserved.
 import math
 from dataclasses import dataclass
